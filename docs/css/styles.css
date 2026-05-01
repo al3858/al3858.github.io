@@ -10975,6 +10975,42 @@ section.resume-section .resume-section-content {
   opacity: 1 !important;
 }
 .img-profile {
-  width: 220px;
+  width: 440px;
   height: 220px;
+}
+.hero {
+  height: 100vh;
+  background: url('assets/img/IMG_6050.jpeg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(6px);
+}
+
+.hero-content {
+  position: relative;
+  color: white;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 6rem;
+  font-weight: 800;
+}
+
+.hero span {
+  color: #E8DCC7;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  margin-top: 10px;
 }
