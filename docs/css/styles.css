@@ -10970,3 +10970,11 @@ section.resume-section .resume-section-content {
     padding-bottom: 5rem;
   }
 }
+#sideNav .nav-link {
+  color: black !important;
+  opacity: 1 !important;
+}
+.img-profile {
+  width: 220px;
+  height: 220px;
+}
