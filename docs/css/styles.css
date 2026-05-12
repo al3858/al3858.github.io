@@ -11135,9 +11135,8 @@ body {
 }
 /* Custom colors */
 .hero {
-    background-color: #d6d1c7;
+    background-color: #e5dfd5;
 }
-
 body {
     background-color: #f7f3ec;
 }
@@ -11164,4 +11163,23 @@ h1, h2, h3 {
 
 .dev-icons {
     font-size: 3rem;
+}
+.hero {
+    min-height: 100vh;
+    background-color: #d9d3c8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-about {
+    max-width: 650px;
+    margin: 15px auto;
+    font-size: 1.1rem;
+    color: #343a40;
+}
+
+.hero-contact {
+    margin-bottom: 20px;
 }
