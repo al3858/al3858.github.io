@@ -4,63 +4,665 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Cloud-Native Infrastructure | Anthi Lyra</title>
-    <link href="css/styles.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <style>
-        body { background-color: #EAF7FF; padding: 2rem; }
-        .project-page { max-width: 860px; margin: auto; }
-        .back-btn { display:inline-block; margin-bottom:2rem; padding:8px 18px; background:#C7E6F5; border-radius:8px; text-decoration:none; font-weight:600; color:#1a1a1a; }
-        .back-btn:hover { background:#a8d8f0; }
-        h1 { font-size: 2.2rem; margin-bottom: 0.3rem; }
-        .meta { color: #888; margin-bottom: 1.5rem; font-size: 0.95rem; }
-        .badge { display:inline-block; background:#C7E6F5; color:#1a3a4a; padding:4px 12px; border-radius:20px; font-size:0.8rem; margin:3px; }
-        .section-title { font-size:1.1rem; font-weight:700; margin:2rem 0 0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:#555; }
-        ul.details { padding-left:1.2rem; line-height:2; color:#444; }
-        .screenshots { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:16px; margin-top:1rem; }
-        .screenshots img { width:100%; border-radius:12px; border:1px solid #ddd; }
-        .github-btn { display:inline-flex; align-items:center; gap:8px; margin-top:2rem; padding:10px 22px; background:#24292e; color:white; border-radius:8px; text-decoration:none; font-weight:600; }
-        .github-btn:hover { background:#444; }
+        :root {
+            --bg: #f0f4f8;
+            --surface: #ffffff;
+            --accent: #1a6b9a;
+            --accent2: #e8a020;
+            --text: #1a2332;
+            --muted: #5a6a7a;
+            --border: #dde4ec;
+            --tag-bg: #e8f4fd;
+            --tag-text: #1a6b9a;
+            --aws-orange: #FF9900;
+            --aws-dark: #232F3E;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--bg);
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* Top bar */
+        .topbar {
+            background: var(--aws-dark);
+            border-bottom: 3px solid var(--aws-orange);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 16px;
+            background: rgba(255,153,0,0.15);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.88rem;
+            color: var(--aws-orange);
+            border: 1px solid rgba(255,153,0,0.3);
+            transition: background 0.2s;
+        }
+        .back-btn:hover { background: rgba(255,153,0,0.25); }
+        .topbar-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.5);
+            margin-left: auto;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #232F3E 0%, #1a4a6e 60%, #1a6b9a 100%);
+            padding: 4rem 2rem 3rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .hero-inner { max-width: 900px; margin: auto; position: relative; }
+        .hero-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            color: var(--aws-orange);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .hero h1 {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.82);
+            max-width: 620px;
+            margin-bottom: 1.5rem;
+        }
+        .tag {
+            display: inline-block;
+            background: rgba(255,153,0,0.15);
+            color: var(--aws-orange);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            margin: 3px;
+            font-weight: 500;
+            border: 1px solid rgba(255,153,0,0.3);
+        }
+
+        /* Layout */
+        .page { max-width: 900px; margin: 0 auto; padding: 2.5rem 2rem; }
+
+        /* Section headings */
+        .section-head {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--aws-orange);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-head::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        p { margin-bottom: 0.75rem; color: var(--muted); }
+        ul { padding-left: 1.4rem; color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
+        ul li { margin-bottom: 6px; }
+
+        /* Stat grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin: 1.5rem 0;
+        }
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--aws-orange);
+            border-radius: 10px;
+            padding: 1.1rem 1rem;
+            text-align: center;
+        }
+        .stat-card .num {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--aws-dark);
+        }
+        .stat-card .lbl {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Lab cards */
+        .lab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin: 1rem 0 2rem;
+        }
+        .lab-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border-left: 4px solid var(--aws-orange);
+        }
+        .lab-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        .lab-card p { font-size: 0.88rem; margin: 0; }
+        .lab-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--aws-orange);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        /* Architecture diagram cards */
+        .arch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 1rem 0;
+        }
+        .arch-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .arch-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--aws-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 1.2rem;
+            color: var(--aws-orange);
+        }
+        .arch-card h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; color: var(--text); }
+        .arch-card p { font-size: 0.8rem; margin: 0; }
+
+        /* Q&A style deliverables */
+        .deliverable {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 14px;
+            overflow: hidden;
+        }
+        .deliverable-header {
+            background: var(--aws-dark);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .deliverable-header span {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--aws-orange);
+            font-weight: 700;
+        }
+        .deliverable-header p {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.85);
+            margin: 0;
+        }
+        .deliverable-body {
+            padding: 1rem 1.25rem;
+        }
+        .deliverable-body p { font-size: 0.9rem; margin-bottom: 0; }
+
+        /* Code block */
+        .code {
+            background: #0d1117;
+            color: #7dd3fc;
+            padding: 1rem 1.25rem;
+            border-radius: 10px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.78rem;
+            overflow-x: auto;
+            line-height: 1.9;
+            margin: 0.75rem 0;
+            border: 1px solid #1e3a4a;
+        }
+        .code .green { color: #4ade80; }
+        .code .orange { color: #fb923c; }
+        .code .gray { color: #6b7280; }
+
+        /* PDF embed section */
+        .pdf-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        .pdf-header {
+            background: var(--aws-dark);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .pdf-header h3 {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--aws-orange);
+            margin: 0;
+        }
+        .pdf-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            background: rgba(255,153,0,0.15);
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.78rem;
+            color: var(--aws-orange);
+            border: 1px solid rgba(255,153,0,0.3);
+        }
+        .pdf-download:hover { background: rgba(255,153,0,0.25); }
+        .pdf-embed {
+            width: 100%;
+            height: 600px;
+            border: none;
+            display: block;
+        }
+
+        /* Comparison table */
+        .comp-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            margin: 1rem 0;
+            background: var(--surface);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .comp-table th {
+            background: var(--aws-dark);
+            color: var(--aws-orange);
+            padding: 10px 14px;
+            text-align: left;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+        }
+        .comp-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            font-size: 0.85rem;
+        }
+        .comp-table tr:last-child td { border-bottom: none; }
+        .comp-table tr:hover td { background: #f8fafc; }
+        .comp-table td:first-child { font-weight: 600; color: var(--text); }
+
+        /* Key insight boxes */
+        .insight {
+            background: linear-gradient(135deg, #fff8e6, #fff3cd);
+            border: 1px solid #ffd166;
+            border-left: 4px solid var(--aws-orange);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+        }
+        .insight p { color: #5a3e00; margin: 0; font-size: 0.9rem; }
+
+        /* Screenshots grid */
+        .screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 14px;
+            margin: 1rem 0;
+        }
+        .screenshots img {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            display: block;
+        }
+        .img-placeholder {
+            background: var(--tag-bg);
+            border: 2px dashed var(--border);
+            border-radius: 10px;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        /* Divider */
+        .divider { margin: 2.5rem 0; border: none; border-top: 1px solid var(--border); }
+
+        /* Buttons */
+        .btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 2rem; }
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            background: var(--aws-dark);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,153,0,0.3);
+            transition: background 0.2s;
+        }
+        .github-btn:hover { background: #1a4a6e; color: white; }
     </style>
 </head>
 <body>
-<div class="project-page">
-    <a href="index.html" class="back-btn">← Back to Portfolio</a>
 
-    <h1>Cloud-Native Infrastructure (AWS)</h1>
-    <p class="meta">Drexel University · Jan 2026 – Present</p>
+<div class="topbar">
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+    <span class="topbar-title">CS545 · Cloud Native Platform Engineering · Drexel University</span>
+</div>
 
-    <div>
-        <span class="badge">AWS</span>
-        <span class="badge">EC2</span>
-        <span class="badge">VPC</span>
-        <span class="badge">Pulumi</span>
-        <span class="badge">Infrastructure as Code</span>
-        <span class="badge">Cloud Architecture</span>
+<!-- Hero -->
+<div class="hero">
+    <div class="hero-inner">
+        <p class="hero-label">CS545 · Cloud Native Platform Engineering</p>
+        <h1>Cloud-Native Infrastructure<br>Project (AWS)</h1>
+        <p>Designed and deployed scalable AWS infrastructure using EC2, VPC, IAM, S3, and Pulumi Infrastructure as Code. Hands-on labs covering network architecture, security, and cloud automation.</p>
+        <div>
+            <span class="tag">AWS EC2</span>
+            <span class="tag">VPC</span>
+            <span class="tag">IAM</span>
+            <span class="tag">S3</span>
+            <span class="tag">Pulumi</span>
+            <span class="tag">NAT Gateway</span>
+            <span class="tag">Bastion Host</span>
+            <span class="tag">IaC</span>
+            <span class="tag">Python</span>
+            <span class="tag">boto3</span>
+        </div>
+    </div>
+</div>
+
+<div class="page">
+
+    <!-- Stats -->
+    <p class="section-head">At a glance</p>
+    <div class="stats-grid">
+        <div class="stat-card"><div class="num">21</div><div class="lbl">AWS Resources Deployed</div></div>
+        <div class="stat-card"><div class="num">2</div><div class="lbl">Labs Completed</div></div>
+        <div class="stat-card"><div class="num">2</div><div class="lbl">VPC Subnets (pub/priv)</div></div>
+        <div class="stat-card"><div class="num">4</div><div class="lbl">Security Layers</div></div>
+        <div class="stat-card"><div class="num">IaC</div><div class="lbl">Pulumi Automation</div></div>
     </div>
 
-    <p class="section-title">Overview</p>
-    <p>Designed and deployed a cloud-native infrastructure on AWS, focusing on scalability, security, and cost efficiency using modern Infrastructure as Code practices.</p>
+    <hr class="divider">
 
-    <p class="section-title">What I Did</p>
-    <ul class="details">
-        <li>Configured cloud infrastructure using AWS services including EC2 and VPC.</li>
-        <li>Designed and analyzed network architecture including subnets, route tables, and security groups.</li>
-        <li>Implemented Infrastructure as Code using Pulumi to provision and manage cloud resources.</li>
-        <li>Deployed and tested cloud environments while managing cost and resource usage.</li>
-        <li>Documented architectural decisions and analyzed trade-offs in cloud system design.</li>
-    </ul>
-
-    <p class="section-title">Screenshots & Results</p>
-    <div class="screenshots">
-        <!-- Add your images here -->
-        <img src="assets/img/projects/aws1.png" alt="AWS Architecture Diagram">
-        <img src="assets/img/projects/aws2.png" alt="EC2 Dashboard">
-        <img src="assets/img/projects/aws3.png" alt="VPC Setup">
+    <!-- Architecture -->
+    <p class="section-head">Architecture Components</p>
+    <div class="arch-grid">
+        <div class="arch-card">
+            <div class="arch-icon"><i class="fas fa-server"></i></div>
+            <h4>EC2 Instances</h4>
+            <p>Bastion host (public) + private instance, both managed via Pulumi</p>
+        </div>
+        <div class="arch-card">
+            <div class="arch-icon"><i class="fas fa-network-wired"></i></div>
+            <h4>VPC + Subnets</h4>
+            <p>Custom VPC with public and private subnets across availability zones</p>
+        </div>
+        <div class="arch-card">
+            <div class="arch-icon"><i class="fas fa-globe"></i></div>
+            <h4>Internet Gateway</h4>
+            <p>Public subnet connection to internet for bastion and web traffic</p>
+        </div>
+        <div class="arch-card">
+            <div class="arch-icon"><i class="fas fa-shield-alt"></i></div>
+            <h4>NAT Gateway</h4>
+            <p>One-way outbound internet for private instances — no inbound access</p>
+        </div>
+        <div class="arch-card">
+            <div class="arch-icon"><i class="fas fa-route"></i></div>
+            <h4>Route Tables</h4>
+            <p>Separate routing rules for public (IGW) and private (NAT) subnets</p>
+        </div>
+        <div class="arch-card">
+            <div class="arch-icon"><i class="fas fa-user-shield"></i></div>
+            <h4>IAM Roles + IMDS</h4>
+            <p>Instance profiles with temporary credentials via metadata service</p>
+        </div>
     </div>
 
-    <a href="https://github.com/al3858" target="_blank" class="github-btn">
-        <i class="fab fa-github"></i> View on GitHub
-    </a>
+    <hr class="divider">
+
+    <!-- Lab 2 -->
+    <p class="section-head">Lab 2 — EC2, S3 & IAM Roles</p>
+
+    <div class="lab-grid">
+        <div class="lab-card">
+            <div class="lab-num">PART 1</div>
+            <h3>EC2 Web Server</h3>
+            <p>Deployed an EC2 instance with Pulumi, created an HTML website hosted on port 8080, and verified public access via DNS.</p>
+        </div>
+        <div class="lab-card">
+            <div class="lab-num">PART 2</div>
+            <h3>S3 + IAM Role</h3>
+            <p>Attached an IAM instance profile so EC2 could read S3 content via IMDS temporary credentials — no hardcoded keys.</p>
+        </div>
+        <div class="lab-card">
+            <div class="lab-num">PART 3 (EXTRA CREDIT)</div>
+            <h3>user_data Automation</h3>
+            <p>Automated the entire server setup using EC2 user_data bootstrap script — eliminating manual SSH and configuration steps.</p>
+        </div>
+    </div>
+
+    <!-- Key insight Lab 2 -->
+    <div class="insight">
+        <p><strong>Key insight:</strong> By default, EC2 instances have no credentials and cannot access any AWS services (default-deny). The IAM role pattern fixes this — each instance only gets access to the specific bucket it needs, so even if something gets compromised, the damage stays limited. The IMDS temporary credentials (AccessKeyId starting with "ASIA") expire after a few hours and are never stored in code.</p>
+    </div>
+
+    <!-- Deliverables Lab 2 -->
+    <h3 style="font-size:1rem; font-weight:600; margin:1.5rem 0 1rem; color:var(--text)">Lab 2 Key Findings</h3>
+
+    <div class="deliverable">
+        <div class="deliverable-header">
+            <span>D8</span>
+            <p>IAM Role + IMDS Credential Chain</p>
+        </div>
+        <div class="deliverable-body">
+            <p>When the EC2 instance starts, it has an instance profile attached with an IAM role. The instance contacts the Instance Metadata Service (IMDS) at 169.254.169.254 to get temporary credentials. The boto3 library automatically uses these credentials — no access keys stored in code. The X-Served-From: S3 header proved success because it is only added after a successful S3 response.</p>
+        </div>
+    </div>
+
+    <div class="deliverable">
+        <div class="deliverable-header">
+            <span>D9</span>
+            <p>Default-Deny Security Model</p>
+        </div>
+        <div class="deliverable-body">
+            <p>When aws s3 ls returned "Access Denied" and aws configure list showed all values as None — that is default-deny. Nothing is allowed unless explicitly granted. If any EC2 instance could read any S3 bucket automatically, one hacked instance could access the entire data lake. IAM roles fix this by scoping access to only what each instance needs.</p>
+        </div>
+    </div>
+
+    <!-- Comparison table Lab 2 -->
+    <table class="comp-table">
+        <thead>
+            <tr><th>Dimension</th><th>Part 1 — EC2 Only</th><th>Part 2 — EC2 + S3 + IAM</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Storage</td><td>Files on EC2 disk — lost on reboot</td><td>Files in S3 — survive any instance event</td></tr>
+            <tr><td>Credentials</td><td>No IAM roles (aws configure = None)</td><td>IAM role via IMDS (temporary ASIA credentials)</td></tr>
+            <tr><td>Configuration</td><td>Manual SSH, create HTML, start server</td><td>Upload to S3, install boto3, run s3_webserver.py</td></tr>
+            <tr><td>Cleanup</td><td>pulumi destroy</td><td>Empty S3 bucket first, then pulumi destroy</td></tr>
+            <tr><td>Setup</td><td>Everything manual via SSH</td><td>Still manual, but EC2 reads from S3 automatically</td></tr>
+        </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <!-- Lab 3 -->
+    <p class="section-head">Lab 3 — VPC, Subnets & Network Architecture</p>
+
+    <div class="lab-grid">
+        <div class="lab-card">
+            <div class="lab-num">PART 1</div>
+            <h3>VPC + Bastion Host</h3>
+            <p>Built a custom VPC with public/private subnets, Internet Gateway, NAT Gateway, route tables, security groups, bastion host, and private EC2 instance — all via Pulumi (21 resources in 2 min).</p>
+        </div>
+        <div class="lab-card">
+            <div class="lab-num">PART 2</div>
+            <h3>SSH Jump + NAT Verification</h3>
+            <p>SSH'd into bastion host, then hopped into the private instance. Verified private instance has no public IP but routes outbound traffic through the NAT Gateway (IP matched natEip).</p>
+        </div>
+    </div>
+
+    <div class="insight">
+        <p><strong>Key insight:</strong> The private instance's outbound IP matched the NAT Gateway EIP (3.218.133.123). This happened because private instances have no public IP — all outbound traffic routes through the NAT Gateway. The bastion host pattern exists so we can access private servers without giving them public internet exposure.</p>
+    </div>
+
+    <!-- Deliverables Lab 3 -->
+    <h3 style="font-size:1rem; font-weight:600; margin:1.5rem 0 1rem; color:var(--text)">Lab 3 Key Findings</h3>
+
+    <div class="deliverable">
+        <div class="deliverable-header">
+            <span>D3</span>
+            <p>Internet Gateway vs NAT Gateway</p>
+        </div>
+        <div class="deliverable-body">
+            <p>An Internet Gateway is the VPC's connection to the internet used by public subnets — instances get public IPs and can send and receive traffic. A NAT Gateway is a one-way door for private subnets — instances can send outbound requests, but the internet cannot initiate connections back. Private instances cannot use the IGW directly because they have no public IPs.</p>
+        </div>
+    </div>
+
+    <div class="deliverable">
+        <div class="deliverable-header">
+            <span>D4</span>
+            <p>Bastion Host Pattern</p>
+        </div>
+        <div class="deliverable-body">
+            <p>The bastion host exists because private instances cannot be accessed directly from the internet. The bastion acts as an SSH entry point inside the public subnet — SSH into the bastion, then SSH into private instances. One improvement: restrict SSH access to specific IP addresses, or use AWS Systems Manager Session Manager instead of SSH to eliminate port 22 exposure entirely.</p>
+        </div>
+    </div>
+
+    <!-- Pulumi output code -->
+    <h3 style="font-size:1rem; font-weight:600; margin:1.5rem 0 0.75rem; color:var(--text)">Pulumi Stack Output (Lab 3)</h3>
+    <div class="code">
+        <span class="green">Outputs:</span><br>
+        &nbsp;&nbsp;bastionPublicDns&nbsp;&nbsp;: <span class="orange">"ec2-98-93-165-111.compute-1.amazonaws.com"</span><br>
+        &nbsp;&nbsp;bastionPublicIp&nbsp;&nbsp;&nbsp;: <span class="orange">"98.93.165.111"</span><br>
+        &nbsp;&nbsp;natEip&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span class="orange">"3.218.133.123"</span><br>
+        &nbsp;&nbsp;privateInstanceIp&nbsp;: <span class="orange">"10.0.11.247"</span><br>
+        &nbsp;&nbsp;privateSubnetA&nbsp;&nbsp;&nbsp;&nbsp;: <span class="orange">"subnet-0e253a0ba94e427"</span><br>
+        &nbsp;&nbsp;publicSubnetA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span class="orange">"subnet-0376ecf2a57bd6add"</span><br>
+        &nbsp;&nbsp;sshCommand&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span class="orange">"ssh -A -i ~/.ssh/labsuser.pem ec2-user@ec2-98-93-165-111.compute-1.amazonaws.com"</span><br>
+        &nbsp;&nbsp;vpcCidr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span class="orange">"10.0.0.0/16"</span><br>
+        &nbsp;&nbsp;vpcId&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span class="orange">"vpc-0bbe18275f67b3c96"</span><br><br>
+        <span class="green">Resources:</span><br>
+        &nbsp;&nbsp;<span class="green">+ 21 created</span><br><br>
+        <span class="gray">Duration: 2m14s</span>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Credential comparison -->
+    <p class="section-head">Credential Security Comparison</p>
+    <table class="comp-table">
+        <thead>
+            <tr><th>Pattern</th><th>Failure Mode</th><th>Risk</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Environment Variables</td><td>Anyone with shell access can run echo $AWS_ACCESS_KEY_ID</td><td style="color:#e85d04; font-weight:600">Medium/High</td></tr>
+            <tr><td>~/.aws/credentials on disk</td><td>If files leak or get pushed to GitHub, anyone can use them</td><td style="color:#dc2626; font-weight:600">High</td></tr>
+            <tr><td>Hardcoded in code</td><td>Exposed in source code, GitHub, or shared files — easy to steal</td><td style="color:#7f1d1d; font-weight:600">Very High</td></tr>
+            <tr><td>IAM Role via IMDS</td><td>Credentials are temporary, expire after a few hours, never stored</td><td style="color:#16a34a; font-weight:600">Low ✓</td></tr>
+        </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <!-- PDFs -->
+    <p class="section-head">Lab Reports (Full PDF)</p>
+
+    <div class="pdf-section">
+        <div class="pdf-header">
+            <h3>📄 Lab 2 — EC2, S3 & IAM Roles</h3>
+            <a href="assets/img/projects/Lyra_Anthi_Lab2.pdf" download class="pdf-download">
+                <i class="fas fa-download"></i> Download PDF
+            </a>
+        </div>
+        <iframe class="pdf-embed" src="assets/img/Lyra_Anthi_Lab2.pdf">
+            <p>Your browser doesn't support PDF embedding. <a href="assets/img/projects/Lyra_Anthi_Lab2.pdf">Download it here.</a></p>
+        </iframe>
+    </div>
+
+    <div class="pdf-section" style="margin-top:1.5rem">
+        <div class="pdf-header">
+            <h3>📄 Lab 3 — VPC, Bastion Host & Network Architecture</h3>
+            <a href="assets/img/projects/Lyra_Anthi_Lab3.pdf" download class="pdf-download">
+                <i class="fas fa-download"></i> Download PDF
+            </a>
+        </div>
+        <iframe class="pdf-embed" src="assets/img/projects/Lyra_Anthi_Lab3.pdf">
+            <p>Your browser doesn't support PDF embedding. <a href="assets/img/Lyra_Anthi_Lab3.pdf">Download it here.</a></p>
+        </iframe>
+    </div>
+
+    <!-- Buttons -->
+    <div class="btn-row">
+        <a href="https://github.com/al3858" target="_blank" class="github-btn">
+            <i class="fab fa-github"></i> View on GitHub
+        </a>
+        <a href="index.html" class="back-btn" style="padding:10px 20px; background:rgba(255,153,0,0.1);">
+            <i class="fas fa-arrow-left"></i> Back to Portfolio
+        </a>
+    </div>
+
 </div>
 </body>
 </html>
