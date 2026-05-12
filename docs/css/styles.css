@@ -11088,3 +11088,14 @@ body {
   color: #5f6670;
   margin-bottom: 0;
 }
+.resume-section-content {
+    margin-top: -120px;
+}
+
+.resume-section h1 {
+    font-size: 5rem;
+}
+
+.resume-section p {
+    font-size: 1.3rem;
+}
