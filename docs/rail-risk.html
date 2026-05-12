@@ -4,235 +4,642 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Rail Accident Weather Risk | Anthi Lyra</title>
-    <link href="css/styles.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <style>
-        body { background-color: #EAF7FF; padding: 2rem; font-family: 'Muli', sans-serif; }
-        .project-page { max-width: 900px; margin: auto; }
-        .back-btn { display:inline-block; margin-bottom:2rem; padding:8px 18px; background:#C7E6F5; border-radius:8px; text-decoration:none; font-weight:600; color:#1a1a1a; }
-        .back-btn:hover { background:#a8d8f0; }
-        h1 { font-size: 2.2rem; margin-bottom: 0.3rem; color: #2f3640; }
-        h2 { font-size: 1.4rem; margin: 2rem 0 0.75rem; color: #2f3640; border-bottom: 2px solid #C7E6F5; padding-bottom: 6px; }
-        h3 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; color: #2f3640; }
-        .meta { color: #888; margin-bottom: 1.5rem; font-size: 0.95rem; }
-        .badge { display:inline-block; background:#FAEEDA; color:#633806; padding:4px 12px; border-radius:20px; font-size:0.8rem; margin:3px; font-weight:600; }
-        .section-title { font-size:1.1rem; font-weight:700; margin:2rem 0 0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:#555; }
-        p { color: #444; line-height: 1.8; margin-bottom: 1rem; }
-        ul { color: #444; line-height: 1.9; padding-left: 1.5rem; margin-bottom: 1rem; }
+        :root {
+            --bg: #f0f4f8;
+            --surface: #ffffff;
+            --accent: #1a6b9a;
+            --accent2: #e8a020;
+            --text: #1a2332;
+            --muted: #5a6a7a;
+            --border: #dde4ec;
+            --tag-bg: #e8f4fd;
+            --tag-text: #1a6b9a;
+        }
 
-        /* Stat cards */
-        .stats-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:16px; margin: 1.5rem 0; }
-        .stat-card { background:white; border-radius:12px; padding:1.2rem; text-align:center; border: 1px solid #dce8f0; }
-        .stat-number { font-size: 1.8rem; font-weight:800; color:#1a5276; }
-        .stat-label { font-size: 0.8rem; color:#888; margin-top:4px; text-transform:uppercase; letter-spacing:0.05em; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* Team */
-        .team-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:12px; margin:1rem 0; }
-        .team-card { background:white; border-radius:12px; padding:1rem; border:1px solid #dce8f0; text-align:center; }
-        .team-card a { color:#1a5276; text-decoration:none; font-weight:600; }
+        body {
+            background: var(--bg);
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* Top bar */
+        .topbar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 16px;
+            background: var(--tag-bg);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.88rem;
+            color: var(--accent);
+            transition: background 0.2s;
+        }
+        .back-btn:hover { background: #cce4f7; }
+        .topbar-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-left: auto;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #0f2a3f 0%, #1a6b9a 60%, #2196c4 100%);
+            padding: 4rem 2rem 3rem;
+            color: white;
+        }
+        .hero-inner { max-width: 900px; margin: auto; }
+        .hero-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .hero h1 {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(1.6rem, 4vw, 2.6rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.82);
+            max-width: 620px;
+            margin-bottom: 1.5rem;
+        }
+        .tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.9);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            margin: 3px;
+            font-weight: 500;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Layout */
+        .page { max-width: 900px; margin: 0 auto; padding: 2.5rem 2rem; }
+
+        /* Section headings */
+        .section-head {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-head::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        h2 { font-size: 1.35rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--text); }
+
+        /* Stat grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin: 1.5rem 0;
+        }
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.2rem 1rem;
+            text-align: center;
+        }
+        .stat-card .num {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .stat-card .lbl {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Model results table */
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            background: var(--surface);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            margin: 1rem 0;
+        }
+        .results-table th {
+            background: #0f2a3f;
+            color: white;
+            padding: 10px 14px;
+            text-align: left;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.05em;
+        }
+        .results-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+        .results-table tr:last-child td { border-bottom: none; }
+        .results-table tr:hover td { background: #f5f9fd; }
+        .best { color: #16a34a; font-weight: 700; font-family: 'Space Mono', monospace; }
+        .model-name { font-weight: 600; }
 
         /* Pipeline steps */
-        .pipeline { display:flex; flex-direction:column; gap:12px; margin:1rem 0; }
-        .pipeline-step { background:white; border-radius:12px; padding:1rem 1.25rem; border-left:4px solid #C7E6F5; border-top:1px solid #dce8f0; border-right:1px solid #dce8f0; border-bottom:1px solid #dce8f0; }
-        .pipeline-step h3 { margin:0 0 6px; font-size:1rem; color:#1a5276; }
-        .pipeline-step p { margin:0; font-size:0.9rem; }
+        .pipeline { display: flex; flex-direction: column; gap: 0; margin: 1rem 0; }
+        .pipe-step {
+            display: flex;
+            gap: 16px;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .pipe-step:last-child { border-bottom: none; }
+        .pipe-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: white;
+            background: var(--accent);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .pipe-content h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+        .pipe-content p { font-size: 0.88rem; color: var(--muted); margin: 0; }
+        .pipe-meta {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--accent2);
+            margin-top: 4px;
+        }
 
-        /* Table */
-        .data-table { width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.88rem; }
-        .data-table th { background:#C7E6F5; padding:10px 12px; text-align:left; color:#1a3a4a; }
-        .data-table td { padding:9px 12px; border-bottom:1px solid #e0ecf5; color:#444; }
-        .data-table tr:hover td { background:#f0f8ff; }
+        /* Challenge cards */
+        .challenges { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 14px; margin: 1rem 0; }
+        .challenge {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.1rem;
+            border-left: 3px solid var(--accent);
+        }
+        .challenge h3 { font-size: 0.92rem; font-weight: 600; margin-bottom: 6px; }
+        .challenge p { font-size: 0.85rem; color: var(--muted); margin: 0; }
 
-        /* Code block */
-        .code-block { background:#1e1e2e; color:#cdd6f4; padding:1rem 1.25rem; border-radius:10px; font-family:monospace; font-size:0.85rem; overflow-x:auto; margin:1rem 0; line-height:1.7; }
+        /* Team */
+        .team { display: flex; flex-wrap: wrap; gap: 12px; margin: 1rem 0; }
+        .team-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.8rem 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .team-avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: var(--tag-bg);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.85rem; color: var(--accent);
+        }
+        .team-card p { font-size: 0.88rem; font-weight: 600; margin: 0; }
+        .team-card a { font-size: 0.78rem; color: var(--muted); text-decoration: none; }
+        .team-card a:hover { color: var(--accent); }
+
+        /* Data flow table */
+        .flow-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.84rem;
+            margin: 1rem 0;
+        }
+        .flow-table th {
+            background: var(--tag-bg);
+            color: var(--accent);
+            padding: 8px 12px;
+            text-align: left;
+            font-size: 0.78rem;
+            font-family: 'Space Mono', monospace;
+        }
+        .flow-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+        .flow-table tr:last-child td { background: #fff8e6; font-weight: 600; }
 
         /* Screenshots */
-        .screenshots { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:16px; margin-top:1rem; }
-        .screenshots img { width:100%; border-radius:12px; border:1px solid #ddd; }
+        .screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+            gap: 14px;
+            margin: 1rem 0;
+        }
+        .screenshots img {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            display: block;
+        }
+        .img-placeholder {
+            background: var(--tag-bg);
+            border: 2px dashed var(--border);
+            border-radius: 10px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 1rem;
+        }
 
-        /* Challenges */
-        .challenge-card { background:white; border-radius:12px; padding:1.25rem; border:1px solid #dce8f0; margin-bottom:12px; }
-        .challenge-card h3 { color:#1a5276; margin:0 0 8px; font-size:1rem; }
+        /* Code block */
+        .code {
+            background: #0f1e2d;
+            color: #7dd3fc;
+            padding: 1.2rem 1.4rem;
+            border-radius: 10px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            overflow-x: auto;
+            line-height: 1.8;
+            margin: 1rem 0;
+        }
+        .code .comment { color: #4a7a9b; }
+        .code .keyword { color: #f0a500; }
 
         /* Buttons */
-        .github-btn { display:inline-flex; align-items:center; gap:8px; margin-top:2rem; padding:10px 22px; background:#24292e; color:white; border-radius:8px; text-decoration:none; font-weight:600; }
-        .github-btn:hover { background:#444; color:white; }
+        .btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 2rem; }
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            background: #0f2a3f;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+        .github-btn:hover { background: #1a6b9a; color: white; }
+
+        /* Divider */
+        .divider { margin: 2.5rem 0; border: none; border-top: 1px solid var(--border); }
+
+        p { margin-bottom: 0.75rem; }
+        ul { padding-left: 1.4rem; color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
+        ul li { margin-bottom: 4px; }
+        a { color: var(--accent); }
     </style>
 </head>
 <body>
-<div class="project-page">
-    <a href="index.html" class="back-btn">← Back to Portfolio</a>
 
-    <h1>Railroad Accident Weather Risk Analysis</h1>
-    <p class="meta">DSCI 611 · Drexel University · Jan – March 2026</p>
+<div class="topbar">
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+    <span class="topbar-title">DSCI 611 · Drexel University · 2026</span>
+</div>
 
-    <div>
-        <span class="badge">Python</span>
-        <span class="badge">Apache Spark</span>
-        <span class="badge">NOAA API</span>
-        <span class="badge">FRA Data</span>
-        <span class="badge">DVC</span>
-        <span class="badge">KDTree</span>
-        <span class="badge">GitHub Actions</span>
-        <span class="badge">Pandas</span>
-        <span class="badge">EDA</span>
+<!-- Hero -->
+<div class="hero">
+    <div class="hero-inner">
+        <p class="hero-label">Term Project · DSCI 611</p>
+        <h1>Railroad Accident<br>Weather Risk Analysis</h1>
+        <p>Predicting highway-rail crossing accident frequency using 50 years of FRA accident data merged with NOAA hourly weather observations. Four ML models trained and tuned on 91,312 matched accident-weather records.</p>
+        <div>
+            <span class="tag">Python</span>
+            <span class="tag">XGBoost</span>
+            <span class="tag">Random Forest</span>
+            <span class="tag">Poisson GLM</span>
+            <span class="tag">Negative Binomial</span>
+            <span class="tag">KDTree</span>
+            <span class="tag">NOAA API</span>
+            <span class="tag">FRA Data</span>
+            <span class="tag">DVC</span>
+            <span class="tag">Optuna</span>
+            <span class="tag">Pandas</span>
+            <span class="tag">Scipy</span>
+        </div>
     </div>
+</div>
+
+<div class="page">
+
+    <!-- Key Stats -->
+    <p class="section-head">By the numbers</p>
+    <div class="stats-grid">
+        <div class="stat-card"><div class="num">228,847</div><div class="lbl">Total Accidents</div></div>
+        <div class="stat-card"><div class="num">50 yrs</div><div class="lbl">1975 – 2025</div></div>
+        <div class="stat-card"><div class="num">756</div><div class="lbl">Weather Stations</div></div>
+        <div class="stat-card"><div class="num">625,820</div><div class="lbl">Weather Requests</div></div>
+        <div class="stat-card"><div class="num">1.3M+</div><div class="lbl">Hourly Records</div></div>
+        <div class="stat-card"><div class="num">91,312</div><div class="lbl">Matched Records</div></div>
+        <div class="stat-card"><div class="num">~5,400</div><div class="lbl">Region-Months</div></div>
+        <div class="stat-card"><div class="num">4</div><div class="lbl">ML Models</div></div>
+    </div>
+
+    <hr class="divider">
 
     <!-- Overview -->
-    <h2>Project Overview</h2>
-    <p>This project predicts the likelihood of highway-rail crossing accidents across the United States under varying weather conditions by integrating historical accident data from the <strong>Federal Railroad Administration (FRA)</strong> with granular hourly weather data from the <strong>NOAA National Centers for Environmental Information (NCEI)</strong> API.</p>
-    <p>The pipeline assigns up to 5 nearest weather stations to each accident location, downloads hourly weather data spanning 50 years (1975–2025), and performs timezone-aware merging to match accidents with weather conditions at the time and place they occurred.</p>
+    <p class="section-head">Project Overview</p>
+    <p>This project analyzes the relationship between weather conditions and railroad accident <strong>frequency</strong> at highway-rail grade crossings across the US. We integrate FRA accident records with NOAA hourly weather data, assign up to 5 nearest weather stations per accident, and aggregate to NOAA climate region-monthly time series for frequency modeling.</p>
+    <p>Early EDA revealed weather has minimal correlation with accident <em>severity</em> (train speed dominates), but may affect how <em>often</em> accidents occur — leading to a pivot from severity prediction to <strong>frequency modeling</strong> using aggregated regional data.</p>
 
-    <!-- Stats -->
-    <h2>Key Statistics</h2>
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-number">228,847</div>
-            <div class="stat-label">Total Accidents</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number">50 yrs</div>
-            <div class="stat-label">1975 – 2025</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number">756</div>
-            <div class="stat-label">Weather Stations</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number">625,820</div>
-            <div class="stat-label">Weather Requests</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number">1.3M+</div>
-            <div class="stat-label">Hourly Records</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number">91,312</div>
-            <div class="stat-label">Final Matched Records</div>
-        </div>
-    </div>
+    <hr class="divider">
 
-    <!-- Team -->
-    <h2>Team</h2>
-    <div class="team-grid">
-        <div class="team-card">
-            <p style="margin:0; font-weight:700">Anthi Lyra</p>
-            <a href="https://github.com/al3858" target="_blank">@al3858</a>
-        </div>
-        <div class="team-card">
-            <p style="margin:0; font-weight:700">Phillip Roman</p>
-            <a href="https://github.com/PhillipJRoman" target="_blank">@PhillipJRoman</a>
-        </div>
-        <div class="team-card">
-            <p style="margin:0; font-weight:700">Ryan Quinlan</p>
-            <a href="https://github.com/rqhq" target="_blank">@rqhq</a>
-        </div>
-        <div class="team-card">
-            <p style="margin:0; font-weight:700">Minh Vo</p>
-            <a href="https://github.com/minhmgnvo" target="_blank">@minhmgnvo</a>
-        </div>
-    </div>
+    <!-- Model Results -->
+    <p class="section-head">Model Results</p>
+    <h2>Baseline vs Tuned Models — Validation 2015–2020</h2>
 
-    <!-- Why it matters -->
-    <h2>Why This Project Matters</h2>
-    <ul>
-        <li>Highway-rail grade crossing accidents result in hundreds of deaths and injuries annually in the US.</li>
-        <li>Understanding the role of weather (visibility, precipitation, temperature, wind) can inform safety policy.</li>
-        <li>Enables predictive models for high-risk weather conditions.</li>
-        <li>Supports resource allocation for railroad safety programs.</li>
-        <li>Drives public awareness campaigns about weather-related crossing dangers.</li>
-    </ul>
+    <table class="results-table">
+        <thead>
+            <tr>
+                <th>Model</th>
+                <th>Baseline MAE</th>
+                <th>Tuned MAE</th>
+                <th>Baseline RMSE</th>
+                <th>Tuned RMSE</th>
+                <th>Tuning Method</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="model-name">XGBoost</td>
+                <td>6.35</td>
+                <td class="best">5.95 ✓</td>
+                <td>8.79</td>
+                <td class="best">8.63</td>
+                <td>Optuna (30 trials)</td>
+            </tr>
+            <tr>
+                <td class="model-name">Random Forest</td>
+                <td>6.67</td>
+                <td>6.41</td>
+                <td>9.43</td>
+                <td>9.18</td>
+                <td>Optuna (30 trials)</td>
+            </tr>
+            <tr>
+                <td class="model-name">Poisson GLM</td>
+                <td>10.09</td>
+                <td>10.30</td>
+                <td>13.95</td>
+                <td>12.76</td>
+                <td>Forward stepwise + interactions</td>
+            </tr>
+            <tr>
+                <td class="model-name">Negative Binomial</td>
+                <td>10.53</td>
+                <td>10.39</td>
+                <td>14.10</td>
+                <td>13.66</td>
+                <td>Exhaustive subset search</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p style="font-size:0.85rem; color:var(--muted)">My contribution: <strong>Random Forest</strong> model — trained, tuned with Optuna 3-stage Bayesian optimization, and evaluated with mean encoding experiment.</p>
+
+    <hr class="divider">
 
     <!-- Pipeline -->
-    <h2>Pipeline — 4 Phases</h2>
+    <p class="section-head">Data Pipeline — 11 Stages</p>
     <div class="pipeline">
-        <div class="pipeline-step">
-            <h3>Phase 1 — Station Assignment (~5 min)</h3>
-            <p>Assigns up to 5 nearest WBAN weather stations to each accident using KDTree spatial indexing with a 50-mile max distance. All 228,847 accidents had at least 1 station nearby.</p>
+        <div class="pipe-step">
+            <div class="pipe-num">1</div>
+            <div class="pipe-content">
+                <h3>prepare-accidents</h3>
+                <p>Merges FRA Form 57 + Form 71. Drops 21,243 records with missing coordinates or invalid timestamps. Output: 228,847 clean accidents.</p>
+                <div class="pipe-meta">~5 min · 250,090 → 228,847 records</div>
+            </div>
         </div>
-        <div class="pipeline-step">
-            <h3>Phase 2 — Prepare Weather Requests (~2 min)</h3>
-            <p>Creates a deduplicated list of unique (station, date) pairs. Reduces ~1.1M potential requests down to 625,820 unique pairs — a 44% reduction.</p>
+        <div class="pipe-step">
+            <div class="pipe-num">2</div>
+            <div class="pipe-content">
+                <h3>assign-stations</h3>
+                <p>KDTree spatial indexing assigns up to 5 nearest WBAN weather stations per accident within 50 miles. All 228,847 accidents got at least 1 station.</p>
+                <div class="pipe-meta">~5 min · 0 records dropped · avg 18.1 miles to station</div>
+            </div>
         </div>
-        <div class="pipeline-step">
-            <h3>Phase 3 — Download Weather Data (6–8 hrs)</h3>
-            <p>Bulk downloads hourly weather CSVs from NOAA Global Hourly dataset. Downloads ~10,000 station-year files, extracting 1.3M+ hourly observations total.</p>
+        <div class="pipe-step">
+            <div class="pipe-num">3</div>
+            <div class="pipe-content">
+                <h3>prepare-weather-requests</h3>
+                <p>Deduplicates (station, date) pairs. Reduces ~1.1M potential requests to 625,820 unique pairs — 44% fewer downloads needed.</p>
+                <div class="pipe-meta">~2 min</div>
+            </div>
         </div>
-        <div class="pipeline-step">
-            <h3>Phase 4 — Merge Accidents with Weather (~15 min)</h3>
-            <p>Timezone-aware temporal matching. Converts accident local time → UTC, then finds nearest weather observation within ±60 minutes using multi-station fallback.</p>
+        <div class="pipe-step">
+            <div class="pipe-num">4</div>
+            <div class="pipe-content">
+                <h3>fetch-weather (frozen)</h3>
+                <p>Bulk downloads yearly CSVs from NOAA Global Hourly. Frozen — team members use dvc pull to get the 357MB compressed file.</p>
+                <div class="pipe-meta">6–8 hrs original · ~1.3M+ hourly observations</div>
+            </div>
+        </div>
+        <div class="pipe-step">
+            <div class="pipe-num">5</div>
+            <div class="pipe-content">
+                <h3>merge-weather</h3>
+                <p>Timezone-aware temporal matching. Converts local accident time → UTC, tries up to 5 stations in fallback order, finds observation within ±60 min.</p>
+                <div class="pipe-meta">~15 min · 228,847 → 91,312 (60.1% drop due to historical data gaps)</div>
+            </div>
+        </div>
+        <div class="pipe-step">
+            <div class="pipe-num">6</div>
+            <div class="pipe-content">
+                <h3>fetch-form71-exposure + parse-weather</h3>
+                <p>Adds train exposure controls (daily train counts, track count, AADT). Parses NOAA encoded strings into numeric columns (TMP, SLP, WND, VIS, CIG).</p>
+                <div class="pipe-meta">0 records dropped</div>
+            </div>
+        </div>
+        <div class="pipe-step">
+            <div class="pipe-num">7</div>
+            <div class="pipe-content">
+                <h3>aggregate-data</h3>
+                <p>Aggregates 91k individual records into ~5,400 NOAA climate region-month observations. Enables frequency modeling (count varies across region-months).</p>
+                <div class="pipe-meta">91,312 accidents → ~5,400 region-months</div>
+            </div>
+        </div>
+        <div class="pipe-step">
+            <div class="pipe-num">8</div>
+            <div class="pipe-content">
+                <h3>split-data</h3>
+                <p>Three-way temporal split from params.yaml. Train: 1975–2014, Validation: 2015–2020, Test holdout: 2021–2025. No data leakage.</p>
+                <div class="pipe-meta">~5,400 region-months preserved</div>
+            </div>
         </div>
     </div>
 
-    <!-- Data flow table -->
-    <h2>Data Pipeline Flow</h2>
-    <table class="data-table">
+    <hr class="divider">
+
+    <!-- Data flow -->
+    <p class="section-head">Pipeline Data Flow</p>
+    <table class="flow-table">
         <thead>
-            <tr><th>Stage</th><th>Input Records</th><th>Output Records</th><th>Dropped</th></tr>
+            <tr><th>Stage</th><th>Input</th><th>Output</th><th>Dropped</th></tr>
         </thead>
         <tbody>
             <tr><td>prepare-accidents</td><td>250,090</td><td>228,847</td><td>21,243 (8.5%)</td></tr>
             <tr><td>assign-stations</td><td>228,847</td><td>228,847</td><td>0</td></tr>
-            <tr><td>prepare-weather-requests</td><td>228,847</td><td>228,847</td><td>0</td></tr>
-            <tr><td>fetch-weather</td><td>N/A</td><td>1.3M+ obs</td><td>0</td></tr>
+            <tr><td>fetch-weather</td><td>—</td><td>1.3M+ obs</td><td>0</td></tr>
             <tr><td>merge-weather</td><td>228,847</td><td>91,312</td><td>137,535 (60.1%)</td></tr>
-            <tr><td>eda-analysis</td><td>91,312</td><td>91,312</td><td>0</td></tr>
-            <tr><td>split-data</td><td>91,312</td><td>91,312</td><td>0</td></tr>
-            <tr><td><strong>FINAL DATASET</strong></td><td><strong>250,090</strong></td><td><strong>91,312</strong></td><td><strong>158,778 (63.5%)</strong></td></tr>
+            <tr><td>aggregate-data</td><td>91,312</td><td>~5,400</td><td>unit change</td></tr>
+            <tr><td>split-data</td><td>~5,400</td><td>~5,400</td><td>0</td></tr>
+            <tr><td><strong>FINAL DATASET</strong></td><td><strong>250,090</strong></td><td><strong>~5,400 region-months</strong></td><td><strong>—</strong></td></tr>
         </tbody>
     </table>
 
+    <hr class="divider">
+
     <!-- Challenges -->
-    <h2>Key Challenges & Solutions</h2>
-    <div class="challenge-card">
-        <h3>🔌 NOAA API Reliability</h3>
-        <p>Initial approach using NOAA CDO v2 API returned HTTP 500 errors. Pivoted to bulk CSV downloads from NOAA Global Hourly — far more reliable for 50-year historical data at scale.</p>
-    </div>
-    <div class="challenge-card">
-        <h3>📍 Station Data Availability</h3>
-        <p>Single station assignment gave only 13% match rate due to historical gaps. Using 5 stations per accident with fallback logic raised this to 40–70%.</p>
-    </div>
-    <div class="challenge-card">
-        <h3>🕐 Timezone Complexity</h3>
-        <p>Accidents recorded in local time, weather in UTC. Used <code>timezonefinder</code> + <code>pytz</code> for accurate DST-aware conversion before temporal matching.</p>
-    </div>
-    <div class="challenge-card">
-        <h3>⚡ Scale & Performance</h3>
-        <p>228k accidents × 75k stations = 17 billion naive comparisons. KDTree spatial indexing reduced this to O(n log m), completing station assignment in ~5 minutes instead of 10+ hours.</p>
+    <p class="section-head">Key Challenges & Solutions</p>
+    <div class="challenges">
+        <div class="challenge">
+            <h3>🔌 NOAA API Reliability</h3>
+            <p>CDO v2 API returned HTTP 500 errors. Pivoted to bulk CSV downloads from NOAA Global Hourly — far more reliable at 50-year scale.</p>
+        </div>
+        <div class="challenge">
+            <h3>📍 Station Data Gaps</h3>
+            <p>Single station: 13% match rate. Five-station fallback raised this to 40–70% by trying alternatives when historical records were missing.</p>
+        </div>
+        <div class="challenge">
+            <h3>🕐 Timezone Complexity</h3>
+            <p>Accidents in local time, weather in UTC. Used timezonefinder + pytz for DST-aware conversion before any temporal matching.</p>
+        </div>
+        <div class="challenge">
+            <h3>⚡ Scale & Performance</h3>
+            <p>228k × 75k = 17 billion naive comparisons. KDTree reduced this to O(n log m) — station assignment in 5 min instead of 10+ hours.</p>
+        </div>
+        <div class="challenge">
+            <h3>📊 Modeling Unit</h3>
+            <p>Individual accidents are always "accident = yes" — can't model frequency. Aggregated to region-months to create count variation for ML.</p>
+        </div>
+        <div class="challenge">
+            <h3>🔬 Mean Encoding Trade-off</h3>
+            <p>Mean encoding dropped XGBoost MAE from 5.95 → 3.42 but captured 82% of feature importance from region identity, not weather. Not adopted.</p>
+        </div>
     </div>
 
-    <!-- Code snippet -->
-    <h2>Sample Code</h2>
-    <div class="code-block">
-# Load the final merged dataset<br>
-import pandas as pd<br>
-<br>
-df = pd.read_csv('data/processed/accidents_with_weather.csv')<br>
-<br>
-print(f"Total accidents with weather: {len(df)}")<br>
-print(f"Match rate: {(df['weather_station_used'].notna().sum() / len(df) * 100):.1f}%")<br>
-print(f"Avg time diff: {df['weather_time_diff_minutes'].mean():.1f} min")
+    <hr class="divider">
+
+    <!-- My contribution -->
+    <p class="section-head">My Contribution — Random Forest Model</p>
+    <p>I built and tuned the Random Forest regressor for frequency prediction. Used three-stage Optuna Bayesian optimization (30 trials per stage) to tune hyperparameters. Also ran the mean encoding experiment to test whether geographic region identity improved predictions — and documented why we chose not to adopt it despite the metric improvement.</p>
+
+    <div class="code">
+        <span class="comment"># Random Forest — Optuna tuning (my contribution)</span><br>
+        import yaml, optuna<br>
+        from sklearn.ensemble import RandomForestRegressor<br><br>
+        <span class="keyword">with</span> open('../params.yaml') <span class="keyword">as</span> f:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;params = yaml.safe_load(f)<br><br>
+        <span class="comment"># Stage 1: tune on baseline weather + exposure features</span><br>
+        study = optuna.create_study(direction='minimize')<br>
+        study.optimize(objective, n_trials=30)<br><br>
+        <span class="comment"># Baseline MAE: 6.67 → Tuned MAE: 6.41</span>
     </div>
+
+    <hr class="divider">
 
     <!-- Screenshots -->
-    <h2>Screenshots & Results</h2>
+    <p class="section-head">Screenshots & Results</p>
     <div class="screenshots">
-        <img src="assets/img/projects/rail1.png" alt="Accident Map">
-        <img src="assets/img/projects/rail2.png" alt="Weather Correlation Chart">
-        <img src="assets/img/projects/rail3.png" alt="EDA Results">
+        <img src="assets/img/projects/rail1.png" alt="Model comparison chart" onerror="this.outerHTML='<div class=\'img-placeholder\'>📊 Add model comparison chart here<br><small>rail1.png</small></div>'">
+        <img src="assets/img/projects/rail2.png" alt="Accident frequency by region" onerror="this.outerHTML='<div class=\'img-placeholder\'>🗺️ Add accident frequency map here<br><small>rail2.png</small></div>'">
+        <img src="assets/img/projects/rail3.png" alt="Weather correlation EDA" onerror="this.outerHTML='<div class=\'img-placeholder\'>📈 Add EDA correlation plot here<br><small>rail3.png</small></div>'">
+        <img src="assets/img/projects/rail4.png" alt="Pipeline data flow" onerror="this.outerHTML='<div class=\'img-placeholder\'>🔄 Add pipeline diagram here<br><small>rail4.png</small></div>'">
     </div>
 
-    <!-- Data sources -->
-    <h2>Data Sources</h2>
-    <ul>
-        <li><a href="https://data.transportation.gov/Railroads/Highway-Rail-Grade-Crossing-Incident-Data-Form-57-/7wn6-i5b9/about_data" target="_blank">FRA Form 57 — Highway-Rail Grade Crossing Accident Data</a></li>
-        <li><a href="https://data.transportation.gov/Railroads/Crossing-Inventory-Data-Form-71-Current/m2f8-22s6/about_data" target="_blank">FRA Form 71 — Crossing Inventory Data</a></li>
-        <li><a href="https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database" target="_blank">NOAA NCEI — Integrated Surface Database</a></li>
-    </ul>
+    <hr class="divider">
 
-    <a href="https://github.com/al3858" target="_blank" class="github-btn">
-        <i class="fab fa-github"></i> View on GitHub
-    </a>
+    <!-- Team -->
+    <p class="section-head">Team</p>
+    <div class="team">
+        <div class="team-card">
+            <div class="team-avatar">AL</div>
+            <div>
+                <p>Anthi Lyra</p>
+                <a href="https://github.com/al3858" target="_blank">@al3858 · Random Forest</a>
+            </div>
+        </div>
+        <div class="team-card">
+            <div class="team-avatar">PR</div>
+            <div>
+                <p>Phillip Roman</p>
+                <a href="https://github.com/PhillipJRoman" target="_blank">@PhillipJRoman · XGBoost</a>
+            </div>
+        </div>
+        <div class="team-card">
+            <div class="team-avatar">RQ</div>
+            <div>
+                <p>Ryan Quinlan</p>
+                <a href="https://github.com/rqhq" target="_blank">@rqhq · Neg. Binomial</a>
+            </div>
+        </div>
+        <div class="team-card">
+            <div class="team-avatar">MV</div>
+            <div>
+                <p>Minh Vo</p>
+                <a href="https://github.com/minhmgnvo" target="_blank">@minhmgnvo · Poisson</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="btn-row">
+        <a href="https://github.com/al3858/611-rail-weather-risk" target="_blank" class="github-btn">
+            <i class="fab fa-github"></i> View on GitHub
+        </a>
+        <a href="index.html" class="back-btn" style="padding:10px 20px;">
+            <i class="fas fa-arrow-left"></i> Back to Portfolio
+        </a>
+    </div>
+
 </div>
 </body>
 </html>
