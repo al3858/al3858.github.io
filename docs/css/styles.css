@@ -11166,7 +11166,7 @@ h1, h2, h3 {
 }
 .hero {
     min-height: 100vh;
-    background-color: #d9d3c8;
+    background-color: #EAF7FF !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -11183,9 +11183,23 @@ h1, h2, h3 {
 .hero-contact {
     margin-bottom: 20px;
 }
+
+#sideNav {
+    background-color: #C7E6F5 !important;
+}
+
 .bg-primary {
     background-color: #C7E6F5 !important;
 }
+
 #sideNav .navbar-nav .nav-item .nav-link {
     color: #4a5a6a;
+}
+
+.avatar-img {
+    width: 120px !important;
+    height: 120px !important;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
 }
