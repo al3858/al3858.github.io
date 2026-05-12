@@ -11100,9 +11100,36 @@ body {
     font-size: 1.3rem;
 }
 .avatar-img {
-    width: 20px;
-    height: 20px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 15px;
+}
+
+/* Projects Section */
+#projects h2 {
+    font-size: 2.5rem;
+}
+
+#projects h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+#projects p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin-bottom: 6px;
+}
+
+/* Reduce spacing between projects */
+#projects .mb-5 {
+    margin-bottom: 2rem !important;
+}
+
+/* General section spacing */
+.resume-section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 }
