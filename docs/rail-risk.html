@@ -7,56 +7,228 @@
     <link href="css/styles.css" rel="stylesheet"/>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <style>
-        body { background-color: #EAF7FF; padding: 2rem; }
-        .project-page { max-width: 860px; margin: auto; }
+        body { background-color: #EAF7FF; padding: 2rem; font-family: 'Muli', sans-serif; }
+        .project-page { max-width: 900px; margin: auto; }
         .back-btn { display:inline-block; margin-bottom:2rem; padding:8px 18px; background:#C7E6F5; border-radius:8px; text-decoration:none; font-weight:600; color:#1a1a1a; }
         .back-btn:hover { background:#a8d8f0; }
-        h1 { font-size: 2.2rem; margin-bottom: 0.3rem; }
+        h1 { font-size: 2.2rem; margin-bottom: 0.3rem; color: #2f3640; }
+        h2 { font-size: 1.4rem; margin: 2rem 0 0.75rem; color: #2f3640; border-bottom: 2px solid #C7E6F5; padding-bottom: 6px; }
+        h3 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; color: #2f3640; }
         .meta { color: #888; margin-bottom: 1.5rem; font-size: 0.95rem; }
-        .badge { display:inline-block; background:#FAEEDA; color:#633806; padding:4px 12px; border-radius:20px; font-size:0.8rem; margin:3px; }
+        .badge { display:inline-block; background:#FAEEDA; color:#633806; padding:4px 12px; border-radius:20px; font-size:0.8rem; margin:3px; font-weight:600; }
         .section-title { font-size:1.1rem; font-weight:700; margin:2rem 0 0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:#555; }
-        ul.details { padding-left:1.2rem; line-height:2; color:#444; }
+        p { color: #444; line-height: 1.8; margin-bottom: 1rem; }
+        ul { color: #444; line-height: 1.9; padding-left: 1.5rem; margin-bottom: 1rem; }
+
+        /* Stat cards */
+        .stats-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:16px; margin: 1.5rem 0; }
+        .stat-card { background:white; border-radius:12px; padding:1.2rem; text-align:center; border: 1px solid #dce8f0; }
+        .stat-number { font-size: 1.8rem; font-weight:800; color:#1a5276; }
+        .stat-label { font-size: 0.8rem; color:#888; margin-top:4px; text-transform:uppercase; letter-spacing:0.05em; }
+
+        /* Team */
+        .team-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:12px; margin:1rem 0; }
+        .team-card { background:white; border-radius:12px; padding:1rem; border:1px solid #dce8f0; text-align:center; }
+        .team-card a { color:#1a5276; text-decoration:none; font-weight:600; }
+
+        /* Pipeline steps */
+        .pipeline { display:flex; flex-direction:column; gap:12px; margin:1rem 0; }
+        .pipeline-step { background:white; border-radius:12px; padding:1rem 1.25rem; border-left:4px solid #C7E6F5; border-top:1px solid #dce8f0; border-right:1px solid #dce8f0; border-bottom:1px solid #dce8f0; }
+        .pipeline-step h3 { margin:0 0 6px; font-size:1rem; color:#1a5276; }
+        .pipeline-step p { margin:0; font-size:0.9rem; }
+
+        /* Table */
+        .data-table { width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.88rem; }
+        .data-table th { background:#C7E6F5; padding:10px 12px; text-align:left; color:#1a3a4a; }
+        .data-table td { padding:9px 12px; border-bottom:1px solid #e0ecf5; color:#444; }
+        .data-table tr:hover td { background:#f0f8ff; }
+
+        /* Code block */
+        .code-block { background:#1e1e2e; color:#cdd6f4; padding:1rem 1.25rem; border-radius:10px; font-family:monospace; font-size:0.85rem; overflow-x:auto; margin:1rem 0; line-height:1.7; }
+
+        /* Screenshots */
         .screenshots { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:16px; margin-top:1rem; }
         .screenshots img { width:100%; border-radius:12px; border:1px solid #ddd; }
+
+        /* Challenges */
+        .challenge-card { background:white; border-radius:12px; padding:1.25rem; border:1px solid #dce8f0; margin-bottom:12px; }
+        .challenge-card h3 { color:#1a5276; margin:0 0 8px; font-size:1rem; }
+
+        /* Buttons */
         .github-btn { display:inline-flex; align-items:center; gap:8px; margin-top:2rem; padding:10px 22px; background:#24292e; color:white; border-radius:8px; text-decoration:none; font-weight:600; }
-        .github-btn:hover { background:#444; }
+        .github-btn:hover { background:#444; color:white; }
     </style>
 </head>
 <body>
 <div class="project-page">
     <a href="index.html" class="back-btn">← Back to Portfolio</a>
 
-    <h1>Rail Accident Weather Risk Analysis</h1>
-    <p class="meta">Drexel University · Jan – March 2026</p>
+    <h1>Railroad Accident Weather Risk Analysis</h1>
+    <p class="meta">DSCI 611 · Drexel University · Jan – March 2026</p>
 
     <div>
         <span class="badge">Python</span>
-        <span class="badge">DVC</span>
-        <span class="badge">GitHub Actions</span>
-        <span class="badge">EDA</span>
-        <span class="badge">NOAA</span>
+        <span class="badge">Apache Spark</span>
+        <span class="badge">NOAA API</span>
         <span class="badge">FRA Data</span>
+        <span class="badge">DVC</span>
+        <span class="badge">KDTree</span>
+        <span class="badge">GitHub Actions</span>
+        <span class="badge">Pandas</span>
+        <span class="badge">EDA</span>
     </div>
 
-    <p class="section-title">Overview</p>
-    <p>Combined Federal Railroad Administration accident records with NOAA weather data to surface environmental risk factors in rail incidents, using reproducible data pipelines and collaborative version control.</p>
+    <!-- Overview -->
+    <h2>Project Overview</h2>
+    <p>This project predicts the likelihood of highway-rail crossing accidents across the United States under varying weather conditions by integrating historical accident data from the <strong>Federal Railroad Administration (FRA)</strong> with granular hourly weather data from the <strong>NOAA National Centers for Environmental Information (NCEI)</strong> API.</p>
+    <p>The pipeline assigns up to 5 nearest weather stations to each accident location, downloads hourly weather data spanning 50 years (1975–2025), and performs timezone-aware merging to match accidents with weather conditions at the time and place they occurred.</p>
 
-    <p class="section-title">What I Did</p>
-    <ul class="details">
-        <li>Built a data pipeline combining FRA accident records with NOAA weather data.</li>
-        <li>Performed data cleaning, feature engineering, and exploratory data analysis.</li>
-        <li>Examined relationships between weather conditions and accident frequency.</li>
-        <li>Used DVC and Git workflows for dataset versioning and reproducible experiments.</li>
-        <li>Collaborated using GitHub with structured workflows for team-based analysis.</li>
+    <!-- Stats -->
+    <h2>Key Statistics</h2>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number">228,847</div>
+            <div class="stat-label">Total Accidents</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">50 yrs</div>
+            <div class="stat-label">1975 – 2025</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">756</div>
+            <div class="stat-label">Weather Stations</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">625,820</div>
+            <div class="stat-label">Weather Requests</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">1.3M+</div>
+            <div class="stat-label">Hourly Records</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">91,312</div>
+            <div class="stat-label">Final Matched Records</div>
+        </div>
+    </div>
+
+    <!-- Team -->
+    <h2>Team</h2>
+    <div class="team-grid">
+        <div class="team-card">
+            <p style="margin:0; font-weight:700">Anthi Lyra</p>
+            <a href="https://github.com/al3858" target="_blank">@al3858</a>
+        </div>
+        <div class="team-card">
+            <p style="margin:0; font-weight:700">Phillip Roman</p>
+            <a href="https://github.com/PhillipJRoman" target="_blank">@PhillipJRoman</a>
+        </div>
+        <div class="team-card">
+            <p style="margin:0; font-weight:700">Ryan Quinlan</p>
+            <a href="https://github.com/rqhq" target="_blank">@rqhq</a>
+        </div>
+        <div class="team-card">
+            <p style="margin:0; font-weight:700">Minh Vo</p>
+            <a href="https://github.com/minhmgnvo" target="_blank">@minhmgnvo</a>
+        </div>
+    </div>
+
+    <!-- Why it matters -->
+    <h2>Why This Project Matters</h2>
+    <ul>
+        <li>Highway-rail grade crossing accidents result in hundreds of deaths and injuries annually in the US.</li>
+        <li>Understanding the role of weather (visibility, precipitation, temperature, wind) can inform safety policy.</li>
+        <li>Enables predictive models for high-risk weather conditions.</li>
+        <li>Supports resource allocation for railroad safety programs.</li>
+        <li>Drives public awareness campaigns about weather-related crossing dangers.</li>
     </ul>
 
-    <p class="section-title">Screenshots & Results</p>
+    <!-- Pipeline -->
+    <h2>Pipeline — 4 Phases</h2>
+    <div class="pipeline">
+        <div class="pipeline-step">
+            <h3>Phase 1 — Station Assignment (~5 min)</h3>
+            <p>Assigns up to 5 nearest WBAN weather stations to each accident using KDTree spatial indexing with a 50-mile max distance. All 228,847 accidents had at least 1 station nearby.</p>
+        </div>
+        <div class="pipeline-step">
+            <h3>Phase 2 — Prepare Weather Requests (~2 min)</h3>
+            <p>Creates a deduplicated list of unique (station, date) pairs. Reduces ~1.1M potential requests down to 625,820 unique pairs — a 44% reduction.</p>
+        </div>
+        <div class="pipeline-step">
+            <h3>Phase 3 — Download Weather Data (6–8 hrs)</h3>
+            <p>Bulk downloads hourly weather CSVs from NOAA Global Hourly dataset. Downloads ~10,000 station-year files, extracting 1.3M+ hourly observations total.</p>
+        </div>
+        <div class="pipeline-step">
+            <h3>Phase 4 — Merge Accidents with Weather (~15 min)</h3>
+            <p>Timezone-aware temporal matching. Converts accident local time → UTC, then finds nearest weather observation within ±60 minutes using multi-station fallback.</p>
+        </div>
+    </div>
+
+    <!-- Data flow table -->
+    <h2>Data Pipeline Flow</h2>
+    <table class="data-table">
+        <thead>
+            <tr><th>Stage</th><th>Input Records</th><th>Output Records</th><th>Dropped</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>prepare-accidents</td><td>250,090</td><td>228,847</td><td>21,243 (8.5%)</td></tr>
+            <tr><td>assign-stations</td><td>228,847</td><td>228,847</td><td>0</td></tr>
+            <tr><td>prepare-weather-requests</td><td>228,847</td><td>228,847</td><td>0</td></tr>
+            <tr><td>fetch-weather</td><td>N/A</td><td>1.3M+ obs</td><td>0</td></tr>
+            <tr><td>merge-weather</td><td>228,847</td><td>91,312</td><td>137,535 (60.1%)</td></tr>
+            <tr><td>eda-analysis</td><td>91,312</td><td>91,312</td><td>0</td></tr>
+            <tr><td>split-data</td><td>91,312</td><td>91,312</td><td>0</td></tr>
+            <tr><td><strong>FINAL DATASET</strong></td><td><strong>250,090</strong></td><td><strong>91,312</strong></td><td><strong>158,778 (63.5%)</strong></td></tr>
+        </tbody>
+    </table>
+
+    <!-- Challenges -->
+    <h2>Key Challenges & Solutions</h2>
+    <div class="challenge-card">
+        <h3>🔌 NOAA API Reliability</h3>
+        <p>Initial approach using NOAA CDO v2 API returned HTTP 500 errors. Pivoted to bulk CSV downloads from NOAA Global Hourly — far more reliable for 50-year historical data at scale.</p>
+    </div>
+    <div class="challenge-card">
+        <h3>📍 Station Data Availability</h3>
+        <p>Single station assignment gave only 13% match rate due to historical gaps. Using 5 stations per accident with fallback logic raised this to 40–70%.</p>
+    </div>
+    <div class="challenge-card">
+        <h3>🕐 Timezone Complexity</h3>
+        <p>Accidents recorded in local time, weather in UTC. Used <code>timezonefinder</code> + <code>pytz</code> for accurate DST-aware conversion before temporal matching.</p>
+    </div>
+    <div class="challenge-card">
+        <h3>⚡ Scale & Performance</h3>
+        <p>228k accidents × 75k stations = 17 billion naive comparisons. KDTree spatial indexing reduced this to O(n log m), completing station assignment in ~5 minutes instead of 10+ hours.</p>
+    </div>
+
+    <!-- Code snippet -->
+    <h2>Sample Code</h2>
+    <div class="code-block">
+# Load the final merged dataset<br>
+import pandas as pd<br>
+<br>
+df = pd.read_csv('data/processed/accidents_with_weather.csv')<br>
+<br>
+print(f"Total accidents with weather: {len(df)}")<br>
+print(f"Match rate: {(df['weather_station_used'].notna().sum() / len(df) * 100):.1f}%")<br>
+print(f"Avg time diff: {df['weather_time_diff_minutes'].mean():.1f} min")
+    </div>
+
+    <!-- Screenshots -->
+    <h2>Screenshots & Results</h2>
     <div class="screenshots">
-        <!-- Add your images here -->
         <img src="assets/img/projects/rail1.png" alt="Accident Map">
         <img src="assets/img/projects/rail2.png" alt="Weather Correlation Chart">
         <img src="assets/img/projects/rail3.png" alt="EDA Results">
     </div>
+
+    <!-- Data sources -->
+    <h2>Data Sources</h2>
+    <ul>
+        <li><a href="https://data.transportation.gov/Railroads/Highway-Rail-Grade-Crossing-Incident-Data-Form-57-/7wn6-i5b9/about_data" target="_blank">FRA Form 57 — Highway-Rail Grade Crossing Accident Data</a></li>
+        <li><a href="https://data.transportation.gov/Railroads/Crossing-Inventory-Data-Form-71-Current/m2f8-22s6/about_data" target="_blank">FRA Form 71 — Crossing Inventory Data</a></li>
+        <li><a href="https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database" target="_blank">NOAA NCEI — Integrated Surface Database</a></li>
+    </ul>
 
     <a href="https://github.com/al3858" target="_blank" class="github-btn">
         <i class="fab fa-github"></i> View on GitHub
