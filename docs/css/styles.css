@@ -11211,3 +11211,9 @@ h1, h2, h3 {
 .resume-section {
     background-color: #CFE7F5 !important;
 }
+.hero p,
+.hero .hero-subtitle,
+.hero .hero-about,
+.hero-contact {
+    color: #000000 !important;
+}
