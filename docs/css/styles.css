@@ -11099,3 +11099,10 @@ body {
 .resume-section p {
     font-size: 1.3rem;
 }
+.avatar-img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
