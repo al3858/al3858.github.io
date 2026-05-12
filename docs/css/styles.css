@@ -11133,3 +11133,19 @@ body {
     padding-top: 3rem;
     padding-bottom: 3rem;
 }
+/* Custom colors */
+.hero {
+    background-color: #d6d1c7;
+}
+
+body {
+    background-color: #f7f3ec;
+}
+
+.resume-section {
+    background-color: #f7f3ec;
+}
+
+h1, h2, h3 {
+    color: #2f3640;
+}
