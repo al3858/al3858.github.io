@@ -11281,15 +11281,4 @@ h1, h2, h3 {
     color: #1a5276;
     font-weight: 800;
 }
-.project-gallery img {
-    width: 100%;
-    max-width: 500px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-}
 
-.project-gallery {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
