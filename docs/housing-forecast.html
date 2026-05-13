@@ -4,63 +4,751 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Housing Price Forecasting | Anthi Lyra</title>
-    <link href="css/styles.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <style>
-        body { background-color: #EAF7FF; padding: 2rem; }
-        .project-page { max-width: 860px; margin: auto; }
-        .back-btn { display:inline-block; margin-bottom:2rem; padding:8px 18px; background:#C7E6F5; border-radius:8px; text-decoration:none; font-weight:600; color:#1a1a1a; }
-        .back-btn:hover { background:#a8d8f0; }
-        h1 { font-size: 2.2rem; margin-bottom: 0.3rem; }
-        .meta { color: #888; margin-bottom: 1.5rem; font-size: 0.95rem; }
-        .badge { display:inline-block; background:#E1F5EE; color:#085041; padding:4px 12px; border-radius:20px; font-size:0.8rem; margin:3px; }
-        .section-title { font-size:1.1rem; font-weight:700; margin:2rem 0 0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:#555; }
-        ul.details { padding-left:1.2rem; line-height:2; color:#444; }
-        .screenshots { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:16px; margin-top:1rem; }
-        .screenshots img { width:100%; border-radius:12px; border:1px solid #ddd; }
-        .github-btn { display:inline-flex; align-items:center; gap:8px; margin-top:2rem; padding:10px 22px; background:#24292e; color:white; border-radius:8px; text-decoration:none; font-weight:600; }
-        .github-btn:hover { background:#444; }
+        :root {
+            --bg: #f0f4f8;
+            --surface: #ffffff;
+            --accent: #2d6a4f;
+            --accent2: #52b788;
+            --accent3: #1b4332;
+            --text: #1a2332;
+            --muted: #5a6a7a;
+            --border: #dde4ec;
+            --tag-bg: #d8f3dc;
+            --tag-text: #1b4332;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--bg);
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* Top bar */
+        .topbar {
+            background: var(--accent3);
+            border-bottom: 3px solid var(--accent2);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 16px;
+            background: rgba(82,183,136,0.15);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.88rem;
+            color: var(--accent2);
+            border: 1px solid rgba(82,183,136,0.3);
+            transition: background 0.2s;
+        }
+        .back-btn:hover { background: rgba(82,183,136,0.28); }
+        .topbar-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.45);
+            margin-left: auto;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 55%, #40916c 100%);
+            padding: 4rem 2rem 3rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -40%; right: -10%;
+            width: 500px; height: 500px;
+            border-radius: 50%;
+            background: rgba(82,183,136,0.08);
+        }
+        .hero-inner { max-width: 900px; margin: auto; position: relative; }
+        .hero-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            color: var(--accent2);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .hero h1 {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(1.5rem, 4vw, 2.4rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.82);
+            max-width: 640px;
+            margin-bottom: 1.5rem;
+        }
+        .tag {
+            display: inline-block;
+            background: rgba(82,183,136,0.18);
+            color: #b7e4c7;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            margin: 3px;
+            font-weight: 500;
+            border: 1px solid rgba(82,183,136,0.3);
+        }
+
+        /* Layout */
+        .page { max-width: 900px; margin: 0 auto; padding: 2.5rem 2rem; }
+
+        /* Section headings */
+        .section-head {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-head::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        p { margin-bottom: 0.75rem; color: var(--muted); }
+        strong { color: var(--text); }
+        ul { padding-left: 1.4rem; color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
+        ul li { margin-bottom: 6px; }
+
+        /* Stat grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+            gap: 12px;
+            margin: 1.5rem 0;
+        }
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--accent2);
+            border-radius: 10px;
+            padding: 1.1rem 1rem;
+            text-align: center;
+        }
+        .stat-card .num {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--accent3);
+        }
+        .stat-card .lbl {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Model results */
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            background: var(--surface);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            margin: 1rem 0;
+        }
+        .results-table th {
+            background: var(--accent3);
+            color: var(--accent2);
+            padding: 10px 14px;
+            text-align: left;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.05em;
+        }
+        .results-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+        .results-table tr:last-child td { border-bottom: none; }
+        .results-table tr:hover td { background: #f0faf4; }
+        .best { color: #16a34a; font-weight: 700; font-family: 'Space Mono', monospace; }
+        .worst { color: #dc2626; font-family: 'Space Mono', monospace; }
+        .model-name { font-weight: 600; }
+
+        /* State breakdown */
+        .state-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin: 1rem 0;
+        }
+        .state-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            position: relative;
+        }
+        .state-card .state-name {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent3);
+            margin-bottom: 6px;
+        }
+        .state-card .state-rmse {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .state-card .state-mae {
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+        .state-card .state-avg {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 6px;
+            border-top: 1px solid var(--border);
+            padding-top: 6px;
+        }
+        .state-best { border-top: 3px solid #16a34a; }
+        .state-worst { border-top: 3px solid #dc2626; }
+        .state-badge {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .badge-best { background: #dcfce7; color: #166534; }
+        .badge-worst { background: #fee2e2; color: #991b1b; }
+
+        /* Pipeline steps */
+        .pipeline { display: flex; flex-direction: column; gap: 0; margin: 1rem 0; }
+        .pipe-step {
+            display: flex;
+            gap: 16px;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .pipe-step:last-child { border-bottom: none; }
+        .pipe-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: white;
+            background: var(--accent);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .pipe-content h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; color: var(--text); }
+        .pipe-content p { font-size: 0.88rem; color: var(--muted); margin: 0; }
+        .pipe-meta {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--accent2);
+            margin-top: 4px;
+        }
+
+        /* Feature cards */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 1rem 0;
+        }
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+            border-left: 4px solid var(--accent2);
+        }
+        .feature-card h4 {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+        .feature-card p { font-size: 0.85rem; margin: 0; }
+
+        /* Insight box */
+        .insight {
+            background: linear-gradient(135deg, #d8f3dc, #b7e4c7);
+            border: 1px solid #74c69d;
+            border-left: 4px solid var(--accent);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+        }
+        .insight p { color: #1b4332; margin: 0; font-size: 0.9rem; }
+
+        /* Code block */
+        .code {
+            background: #0d1f0f;
+            color: #74c69d;
+            padding: 1.2rem 1.4rem;
+            border-radius: 10px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.78rem;
+            overflow-x: auto;
+            line-height: 1.9;
+            margin: 1rem 0;
+            border: 1px solid #1b4332;
+        }
+        .code .comment { color: #2d6a4f; }
+        .code .keyword { color: #95d5b2; }
+        .code .string { color: #b7e4c7; }
+
+        /* Screenshots */
+        .screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 14px;
+            margin: 1rem 0;
+        }
+        .screenshots img {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            display: block;
+        }
+        .img-placeholder {
+            background: var(--tag-bg);
+            border: 2px dashed #74c69d;
+            border-radius: 10px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        /* PDF section */
+        .pdf-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        .pdf-header {
+            background: var(--accent3);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .pdf-header h3 {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--accent2);
+            margin: 0;
+        }
+        .pdf-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            background: rgba(82,183,136,0.15);
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.78rem;
+            color: var(--accent2);
+            border: 1px solid rgba(82,183,136,0.3);
+        }
+        .pdf-download:hover { background: rgba(82,183,136,0.28); }
+        .pdf-embed {
+            width: 100%;
+            height: 600px;
+            border: none;
+            display: block;
+        }
+
+        /* Team */
+        .team { display: flex; flex-wrap: wrap; gap: 12px; margin: 1rem 0; }
+        .team-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.8rem 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .team-avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: var(--tag-bg);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.85rem; color: var(--accent3);
+        }
+        .team-card p { font-size: 0.88rem; font-weight: 600; margin: 0; color: var(--text); }
+        .team-card a { font-size: 0.78rem; color: var(--muted); text-decoration: none; }
+        .team-card a:hover { color: var(--accent); }
+
+        /* Divider */
+        .divider { margin: 2.5rem 0; border: none; border-top: 1px solid var(--border); }
+
+        /* Buttons */
+        .btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 2rem; }
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            background: var(--accent3);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+        .github-btn:hover { background: var(--accent); color: white; }
     </style>
 </head>
 <body>
-<div class="project-page">
-    <a href="index.html" class="back-btn">← Back to Portfolio</a>
 
-    <h1>Data Pipeline for Housing Price Forecasting</h1>
-    <p class="meta">Drexel University · Jan – March 2026</p>
+<div class="topbar">
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+    <span class="topbar-title">DSCI 632 · Applied Cloud Computing · Drexel University</span>
+</div>
 
-    <div>
-        <span class="badge">Apache Spark</span>
-        <span class="badge">Python</span>
-        <span class="badge">Linear Regression</span>
-        <span class="badge">Gradient Boosted Trees</span>
-        <span class="badge">Feature Engineering</span>
-        <span class="badge">Zillow HVI</span>
+<!-- Hero -->
+<div class="hero">
+    <div class="hero-inner">
+        <p class="hero-label">DSCI 632 · Applied Cloud Computing · Final Project</p>
+        <h1>Predicting County-Level<br>Housing Prices with Apache Spark</h1>
+        <p>Built a scalable Apache Spark ML pipeline to forecast next-month housing prices using Zillow's Housing Value Index across 5 states and 78,633 county-month observations. Linear Regression achieved $2,082 MAE.</p>
+        <div>
+            <span class="tag">Apache Spark</span>
+            <span class="tag">PySpark</span>
+            <span class="tag">MLlib</span>
+            <span class="tag">Linear Regression</span>
+            <span class="tag">Gradient Boosted Trees</span>
+            <span class="tag">Random Forest</span>
+            <span class="tag">Zillow ZHVI</span>
+            <span class="tag">Feature Engineering</span>
+            <span class="tag">Time Series</span>
+            <span class="tag">VectorAssembler</span>
+        </div>
+    </div>
+</div>
+
+<div class="page">
+
+    <!-- Stats -->
+    <p class="section-head">By the numbers</p>
+    <div class="stats-grid">
+        <div class="stat-card"><div class="num">78,633</div><div class="lbl">County-Month Obs.</div></div>
+        <div class="stat-card"><div class="num">5</div><div class="lbl">States Analyzed</div></div>
+        <div class="stat-card"><div class="num">15 yrs</div><div class="lbl">2010 – 2025</div></div>
+        <div class="stat-card"><div class="num">3</div><div class="lbl">ML Models</div></div>
+        <div class="stat-card"><div class="num">$2,082</div><div class="lbl">Best MAE (Lin. Reg.)</div></div>
+        <div class="stat-card"><div class="num">78.3%</div><div class="lbl">Training Split</div></div>
     </div>
 
-    <p class="section-title">Overview</p>
-    <p>Built a Spark-based machine learning pipeline to forecast next-month housing prices using Zillow's Housing Value Index, engineering lag features and evaluating multiple regression models across U.S. states.</p>
+    <hr class="divider">
 
-    <p class="section-title">What I Did</p>
-    <ul class="details">
-        <li>Developed a Spark-based pipeline to analyze and forecast housing prices using Zillow's HVI dataset.</li>
-        <li>Transformed large time-series datasets from wide to long format using Spark window functions.</li>
-        <li>Engineered lag features at 1-month, 3-month, and 12-month horizons.</li>
-        <li>Built Linear Regression and Gradient Boosted Trees models to predict next-month prices.</li>
-        <li>Evaluated models using RMSE and MAE across multiple U.S. states.</li>
-    </ul>
+    <!-- Overview -->
+    <p class="section-head">Project Overview</p>
+    <p>Housing prices are a key indicator affecting investment decisions and market trends. This project analyzes county-level housing price trends using Zillow's Housing Value Index (ZHVI) dataset and develops a predictive model to forecast future housing prices using <strong>Apache Spark and PySpark</strong> for scalable ML pipelines.</p>
+    <p>The study focuses on 5 states (NJ, NY, PA, CA, TX) and investigates how well recent price trends — captured through lag features — can predict short-term future housing prices.</p>
 
-    <p class="section-title">Screenshots & Results</p>
+    <hr class="divider">
+
+    <!-- Dataset -->
+    <p class="section-head">Dataset</p>
+    <p>The dataset covers <strong>middle-tier housing prices</strong> (33rd–67th percentile) for single-family homes and condos, with seasonally adjusted and smoothed values from Zillow. Each row originally represented a county with monthly price columns from January 2000 to December 2025.</p>
+
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h4>Geographic Scope</h4>
+            <p>5 states: New Jersey, New York, Pennsylvania, California, Texas</p>
+        </div>
+        <div class="feature-card">
+            <h4>Time Range</h4>
+            <p>2010–2025 (focused on modern market trends, avoiding early missing values)</p>
+        </div>
+        <div class="feature-card">
+            <h4>Format</h4>
+            <p>Wide format (one column per month) → transformed to long format (one row per county-month)</p>
+        </div>
+        <div class="feature-card">
+            <h4>Final Size</h4>
+            <p>78,633 county-month observations after preprocessing and missing value removal</p>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Pipeline -->
+    <p class="section-head">Spark ML Pipeline</p>
+    <div class="pipeline">
+        <div class="pipe-step">
+            <div class="pipe-num">1</div>
+            <div class="pipe-content">
+                <h3>State & Time Filtering</h3>
+                <p>Retained only counties from 5 selected states. Selected monthly price columns from 2010 onwards to reduce missing values and focus on modern market trends.</p>
+            </div>
+        </div>
+        <div class="pipe-step">
+            <div class="pipe-num">2</div>
+            <div class="pipe-content">
+                <h3>Wide-to-Long Transformation</h3>
+                <p>Used Spark's stack() function to reshape data from wide format (one column per month) into long time-series format with fields: RegionID, RegionName, State, Metro, Date, ZHVI price.</p>
+                <div class="pipe-meta">250,090 raw → 78,633 clean county-month observations</div>
+            </div>
+        </div>
+        <div class="pipe-step">
+            <div class="pipe-num">3</div>
+            <div class="pipe-content">
+                <h3>Feature Engineering — Lag Features</h3>
+                <p>Used Spark window functions partitioned by RegionID and ordered by date to create time-based features independently per county. Target variable: next month's ZHVI via lead().</p>
+                <div class="pipe-meta">lag_1 · lag_3 · lag_12 features created</div>
+            </div>
+        </div>
+        <div class="pipe-step">
+            <div class="pipe-num">4</div>
+            <div class="pipe-content">
+                <h3>Time-Based Train/Test Split</h3>
+                <p>Preserved temporal structure — no random shuffling. Training: 2010–2022 (57,009 rows, 78.34%). Testing: 2023–2025 (15,761 rows, 21.66%).</p>
+            </div>
+        </div>
+        <div class="pipe-step">
+            <div class="pipe-num">5</div>
+            <div class="pipe-content">
+                <h3>VectorAssembler + Model Training</h3>
+                <p>Combined lag_1, lag_3, lag_12 into a single feature vector using VectorAssembler. Trained 3 Spark MLlib models and evaluated with RMSE and MAE.</p>
+                <div class="pipe-meta">Linear Regression · Gradient Boosted Trees · Random Forest</div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Features -->
+    <p class="section-head">Lag Features Explained</p>
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h4>lag_1</h4>
+            <p>Price from 1 month prior — captures very recent price momentum</p>
+        </div>
+        <div class="feature-card">
+            <h4>lag_3</h4>
+            <p>Price from 3 months prior — captures short-term trends</p>
+        </div>
+        <div class="feature-card">
+            <h4>lag_12</h4>
+            <p>Price from 12 months prior — captures seasonal/yearly patterns (same month last year)</p>
+        </div>
+        <div class="feature-card">
+            <h4>Target (label)</h4>
+            <p>Next month's ZHVI price, created with Spark's lead() window function</p>
+        </div>
+    </div>
+
+    <!-- Code -->
+    <div class="code">
+        <span class="comment"># Spark window function for lag features</span><br>
+        from pyspark.sql import Window<br>
+        from pyspark.sql.functions import lag, lead<br><br>
+        window = Window.partitionBy(<span class="string">"RegionID"</span>).orderBy(<span class="string">"Date"</span>)<br><br>
+        df = df.withColumn(<span class="string">"lag_1"</span>, lag(<span class="string">"ZHVI"</span>, 1).over(window))<br>
+        df = df.withColumn(<span class="string">"lag_3"</span>, lag(<span class="string">"ZHVI"</span>, 3).over(window))<br>
+        df = df.withColumn(<span class="string">"lag_12"</span>, lag(<span class="string">"ZHVI"</span>, 12).over(window))<br>
+        df = df.withColumn(<span class="string">"label"</span>, lead(<span class="string">"ZHVI"</span>, 1).over(window))<br><br>
+        <span class="comment"># VectorAssembler for feature vector</span><br>
+        assembler = VectorAssembler(inputCols=[<span class="string">"lag_1"</span>, <span class="string">"lag_3"</span>, <span class="string">"lag_12"</span>], outputCol=<span class="string">"features"</span>)
+    </div>
+
+    <hr class="divider">
+
+    <!-- Model Results -->
+    <p class="section-head">Model Results</p>
+
+    <table class="results-table">
+        <thead>
+            <tr><th>Model</th><th>RMSE</th><th>MAE</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="model-name">Linear Regression</td>
+                <td class="best">$3,120</td>
+                <td class="best">$2,082 ✓ Best</td>
+                <td>Best performer — housing prices change gradually, creating a simple linear relationship</td>
+            </tr>
+            <tr>
+                <td class="model-name">Random Forest</td>
+                <td class="worst">$71,094</td>
+                <td class="worst">$23,698</td>
+                <td>Struggled with smooth time trends — better for complex nonlinear data</td>
+            </tr>
+            <tr>
+                <td class="model-name">Gradient Boosted Trees</td>
+                <td class="worst">$73,153</td>
+                <td class="worst">$29,118</td>
+                <td>Decision splits don't follow smooth housing price progression</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="insight">
+        <p><strong>Why Linear Regression won:</strong> Housing prices usually change gradually over time, creating a simple and consistent relationship between past and future prices. Tree-based models rely on decision splits — they're better for complex nonlinear relationships but struggle to follow smooth time trends like housing prices.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Per-state results -->
+    <p class="section-head">Linear Regression — Per-State Breakdown</p>
+    <div class="state-grid">
+        <div class="state-card state-best">
+            <span class="state-badge badge-best">✓ Lowest Error</span>
+            <div class="state-name">PA</div>
+            <div class="state-rmse">RMSE $1,720</div>
+            <div class="state-mae">MAE $1,340</div>
+            <div class="state-avg">Avg price $166,470</div>
+        </div>
+        <div class="state-card">
+            <div class="state-name">NY</div>
+            <div class="state-rmse">RMSE $2,511</div>
+            <div class="state-mae">MAE $1,655</div>
+            <div class="state-avg">Mid-range prices</div>
+        </div>
+        <div class="state-card">
+            <div class="state-name">NJ</div>
+            <div class="state-rmse">RMSE $2,647</div>
+            <div class="state-mae">MAE $2,004</div>
+            <div class="state-avg">Mid-range prices</div>
+        </div>
+        <div class="state-card">
+            <div class="state-name">TX</div>
+            <div class="state-rmse">RMSE $2,676</div>
+            <div class="state-mae">MAE $2,032</div>
+            <div class="state-avg">Mid-range prices</div>
+        </div>
+        <div class="state-card state-worst">
+            <span class="state-badge badge-worst">Highest Error</span>
+            <div class="state-name">CA</div>
+            <div class="state-rmse">RMSE $5,741</div>
+            <div class="state-mae">MAE $3,637</div>
+            <div class="state-avg">Avg price $429,318</div>
+        </div>
+    </div>
+
+    <div class="insight">
+        <p><strong>Why CA has the highest error:</strong> Error scales with price — California's average home price ($429,318) is 2.6× Pennsylvania's ($166,470). Even a small percentage error produces larger absolute dollar amounts. This is expected and consistent with the data.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Screenshots -->
+    <p class="section-head">Screenshots & Results</p>
     <div class="screenshots">
-        <!-- Add your images here -->
-        <img src="assets/img/projects/housing1.png" alt="Model Results">
-        <img src="assets/img/projects/housing2.png" alt="RMSE Chart">
-        <img src="assets/img/projects/housing3.png" alt="Price Trends">
+        <img src="assets/img/projects/housing1.png" alt="Model comparison chart"
+             onerror="this.outerHTML='<div class=\'img-placeholder\'>📊 Add model RMSE/MAE comparison chart<br><small>housing1.png</small></div>'">
+        <img src="assets/img/projects/housing2.png" alt="Per-state error breakdown"
+             onerror="this.outerHTML='<div class=\'img-placeholder\'>🗺️ Add per-state error breakdown<br><small>housing2.png</small></div>'">
+        <img src="assets/img/projects/housing3.png" alt="Price trend visualization"
+             onerror="this.outerHTML='<div class=\'img-placeholder\'>📈 Add price trend visualization<br><small>housing3.png</small></div>'">
+        <img src="assets/img/projects/housing4.png" alt="Spark pipeline output"
+             onerror="this.outerHTML='<div class=\'img-placeholder\'>⚡ Add Spark pipeline screenshot<br><small>housing4.png</small></div>'">
     </div>
 
-    <a href="https://github.com/al3858" target="_blank" class="github-btn">
-        <i class="fab fa-github"></i> View on GitHub
-    </a>
+    <hr class="divider">
+
+    <!-- Full report PDF -->
+    <p class="section-head">Full Project Report (PDF)</p>
+    <div class="pdf-section">
+        <div class="pdf-header">
+            <h3>📄 DSCI 632 Final Project Report — Housing Price Forecasting</h3>
+            <a href="assets/img/projects/DSCI_632_Final_Project_Report.pdf" download class="pdf-download">
+                <i class="fas fa-download"></i> Download PDF
+            </a>
+        </div>
+        <iframe class="pdf-embed" src="assets/img/projects/DSCI_632_Final_Project_Report.pdf">
+            <p>Your browser doesn't support PDF embedding. <a href="assets/img/projects/DSCI_632_Final_Project_Report.pdf">Download it here.</a></p>
+        </iframe>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Conclusion -->
+    <p class="section-head">Conclusion & Future Work</p>
+    <p>The project demonstrated that <strong>recent housing prices are strong predictors of short-term price movements</strong>. The lag features captured recent trends and seasonal patterns effectively, helping Linear Regression achieve low prediction error. The Spark ML pipeline scaled efficiently across 78,633 county-month observations.</p>
+    <p>Future work could include additional variables such as interest rates, economic indicators, or regional demand factors to improve prediction accuracy — especially for high-variance markets like California.</p>
+
+    <hr class="divider">
+
+    <!-- Team -->
+    <p class="section-head">Team</p>
+    <div class="team">
+        <div class="team-card">
+            <div class="team-avatar">AL</div>
+            <div>
+                <p>Anthi Lyra</p>
+                <a href="mailto:al3858@drexel.edu">al3858@drexel.edu</a>
+            </div>
+        </div>
+        <div class="team-card">
+            <div class="team-avatar">JM</div>
+            <div>
+                <p>Jinsu Mathew</p>
+                <a href="mailto:jm5332@drexel.edu">jm5332@drexel.edu</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="btn-row">
+        <a href="https://github.com/al3858" target="_blank" class="github-btn">
+            <i class="fab fa-github"></i> View on GitHub
+        </a>
+        <a href="index.html" class="back-btn" style="padding:10px 20px; background:rgba(82,183,136,0.1); color:var(--accent); border:1px solid rgba(82,183,136,0.3);">
+            <i class="fas fa-arrow-left"></i> Back to Portfolio
+        </a>
+    </div>
+
 </div>
 </body>
 </html>
